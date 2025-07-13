@@ -1,0 +1,192 @@
+/* Glitch effect - continuous bad signal style */
+.glitch {
+  position: relative;
+  display: inline-block;
+  animation: glitch-flicker 3s infinite;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+}
+
+.glitch::before {
+  animation: glitch-1 2s infinite;
+  color: #ff00ff;
+  z-index: -1;
+  text-shadow: 2px 0 #ff00ff;
+}
+
+.glitch::after {
+  animation: glitch-2 2.5s infinite;
+  color: #00ffff;
+  z-index: -2;
+  text-shadow: -2px 0 #00ffff;
+}
+
+@keyframes glitch-1 {
+  0%, 100% { 
+    opacity: 0.8;
+    transform: translateY(0);
+  }
+  10% { 
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+  20% { 
+    opacity: 0.7;
+    transform: translateY(1px);
+  }
+  30% { 
+    opacity: 0.8;
+    transform: translateY(0);
+  }
+  40% { 
+    opacity: 0.6;
+    transform: translateY(-2px);
+  }
+  50% { 
+    opacity: 0.9;
+    transform: translateY(2px);
+  }
+  60% { 
+    opacity: 0.7;
+    transform: translateY(-1px);
+  }
+  70% { 
+    opacity: 0.8;
+    transform: translateY(1px);
+  }
+  80% { 
+    opacity: 0.6;
+    transform: translateY(0);
+  }
+  90% { 
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes glitch-2 {
+  0%, 100% { 
+    opacity: 0.8;
+    transform: translateY(0);
+  }
+  15% { 
+    opacity: 0.7;
+    transform: translateY(1px);
+  }
+  25% { 
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+  35% { 
+    opacity: 0.6;
+    transform: translateY(2px);
+  }
+  45% { 
+    opacity: 0.8;
+    transform: translateY(-2px);
+  }
+  55% { 
+    opacity: 0.7;
+    transform: translateY(1px);
+  }
+  65% { 
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+  75% { 
+    opacity: 0.6;
+    transform: translateY(0);
+  }
+  85% { 
+    opacity: 0.8;
+    transform: translateY(1px);
+  }
+  95% { 
+    opacity: 0.7;
+    transform: translateY(-1px);
+  }
+}
+
+@keyframes glitch-flicker {
+  0%, 100% { 
+    opacity: 1;
+  }
+  5% { 
+    opacity: 0.9;
+  }
+  10% { 
+    opacity: 1;
+  }
+  15% { 
+    opacity: 0.8;
+  }
+  20% { 
+    opacity: 1;
+  }
+  25% { 
+    opacity: 0.9;
+  }
+  30% { 
+    opacity: 1;
+  }
+  35% { 
+    opacity: 0.7;
+  }
+  40% { 
+    opacity: 1;
+  }
+  45% { 
+    opacity: 0.9;
+  }
+  50% { 
+    opacity: 1;
+  }
+  55% { 
+    opacity: 0.8;
+  }
+  60% { 
+    opacity: 1;
+  }
+  65% { 
+    opacity: 0.9;
+  }
+  70% { 
+    opacity: 1;
+  }
+  75% { 
+    opacity: 0.7;
+  }
+  80% { 
+    opacity: 1;
+  }
+  85% { 
+    opacity: 0.9;
+  }
+  90% { 
+    opacity: 1;
+  }
+  95% { 
+    opacity: 0.8;
+  }
+}
+
+/* Typing cursor */
+.cyber-cursor {
+  color: #fef100;
+  animation: cyber-cursor-blink 1.2s steps(2) infinite;
+  font-weight: bold;
+}
+
+@keyframes cyber-cursor-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+} 
