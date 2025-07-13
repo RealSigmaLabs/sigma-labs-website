@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -26,7 +26,7 @@ model Post {
   id        String    @id @default(cuid())
   title     String
   content   String
-  tags      String?   // Changed from String[] to String for SQLite compatibility
+  tags      String?   // Store as comma-separated string
   authorId  String
   author    User      @relation(fields: [authorId], references: [id])
   comments  Comment[]
@@ -52,7 +52,7 @@ model Project {
   title       String
   description String
   imageUrl    String?
-  tags        String?  // Changed from String[] to String for SQLite compatibility
+  tags        String?  // Store as comma-separated string
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -62,7 +62,7 @@ model Course {
   title       String
   description String
   imageUrl    String?
-  tags        String?  // Changed from String[] to String for SQLite compatibility
+  tags        String?  // Store as comma-separated string
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 } 
