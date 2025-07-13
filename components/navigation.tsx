@@ -5,6 +5,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
+import { useWallet } from '@solana/wallet-adapter-react'
+import { WalletModalButton } from '@solana/wallet-adapter-react-ui'
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -15,16 +17,10 @@ const navigation = [
 
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [showComingSoon, setShowComingSoon] = useState(false)
+  const { publicKey } = useWallet()
 
-  const handleConnectWallet = (e: React.MouseEvent) => {
-    e.preventDefault()
-    setShowComingSoon(true)
-  }
-
-  const closePopup = () => {
-    setShowComingSoon(false)
-  }
+  // Helper to shorten address
+  const shortenAddress = (address: string) => address.slice(0, 4) + '...' + address.slice(-4)
 
   return (
     <header className="bg-primary-500 border-b-2 border-black">
@@ -63,12 +59,15 @@ export function Navigation() {
           ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <button
-            onClick={handleConnectWallet}
-            className="cyberpunk-button px-6 py-2 text-lg font-semibold hover:scale-105 transition-transform duration-300"
-          >
-            Connect Wallet
-          </button>
+          {publicKey ? (
+            <span className="cyberpunk-font-medium text-lg font-semibold text-black px-6 py-2 bg-yellow-300 rounded border border-black">
+              {shortenAddress(publicKey.toBase58())}
+            </span>
+          ) : (
+            <WalletModalButton className="cyberpunk-button px-6 py-2 text-lg font-semibold hover:scale-105 transition-transform duration-300">
+              Connect Wallet
+            </WalletModalButton>
+          )}
         </div>
       </nav>
       
@@ -118,7 +117,7 @@ export function Navigation() {
               <div className="py-6">
                 <button
                   onClick={(e) => {
-                    handleConnectWallet(e)
+                    // handleConnectWallet(e) // This function is removed
                     setMobileMenuOpen(false)
                   }}
                   className="cyberpunk-button -mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 hover:scale-105 transition-transform duration-300"
@@ -132,34 +131,7 @@ export function Navigation() {
       </motion.div>
 
       {/* Coming Soon Popup */}
-      {showComingSoon && (
-        <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.8 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-          onClick={closePopup}
-        >
-          <div 
-            className="bg-yellow-300 border-2 border-black p-8 rounded-lg shadow-lg max-w-md mx-4 relative"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={closePopup}
-              className="absolute top-2 right-2 text-black hover:text-gray-700 transition-colors duration-200"
-              aria-label="Close popup"
-            >
-              <X className="h-6 w-6" />
-            </button>
-            <h3 className="text-2xl font-bold text-black cyberpunk-font mb-4 text-center pr-8">
-              Coming Soon
-            </h3>
-            <p className="text-black cyberpunk-font-thin text-center">
-              Wallet connection feature is being developed. Stay tuned!
-            </p>
-          </div>
-        </motion.div>
-      )}
+      {/* This section is removed as per the new_code, as the wallet connection is now handled by the Solana wallet adapter modal. */}
     </header>
   )
 } 

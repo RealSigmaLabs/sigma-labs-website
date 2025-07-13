@@ -23,8 +23,8 @@ export default function CoursesPage() {
       
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 relative z-10">
         <div className="mx-auto max-w-2xl text-center">
-          <h1 className="text-4xl font-bold tracking-tight text-black sm:text-5xl cyberpunk-font">
-            Our Courses
+          <h1 className="cyberpunk-font text-4xl font-bold tracking-tight text-black sm:text-5xl glitch mb-6" data-text="OUR COURSES">
+            OUR COURSES
           </h1>
           <p className="mt-4 text-lg leading-8 text-black cyberpunk-font-thin">
             Learn from comprehensive courses covering the latest technologies and development practices.

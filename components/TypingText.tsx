@@ -17,30 +17,37 @@ export function TypingText({
 }: TypingTextProps) {
   const [displayText, setDisplayText] = useState('')
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [hasAnimated, setHasAnimated] = useState(false)
 
   useEffect(() => {
-    if (!animate || hasAnimated) {
+    if (!animate) {
       setDisplayText(text)
       return
     }
 
-    if (currentIndex < text.length) {
-      const timeout = setTimeout(() => {
-        setDisplayText(text.slice(0, currentIndex + 1))
-        setCurrentIndex(currentIndex + 1)
-      }, speed)
+    // Reset when text changes
+    setDisplayText('')
+    setCurrentIndex(0)
 
-      return () => clearTimeout(timeout)
-    } else {
-      setHasAnimated(true)
-    }
-  }, [currentIndex, text, speed, animate, hasAnimated])
+    if (text.length === 0) return
+
+    const interval = setInterval(() => {
+      setCurrentIndex(prev => {
+        if (prev >= text.length) {
+          clearInterval(interval)
+          return prev
+        }
+        setDisplayText(text.slice(0, prev + 1))
+        return prev + 1
+      })
+    }, speed)
+
+    return () => clearInterval(interval)
+  }, [text, speed, animate])
 
   return (
     <span className={`cyberpunk-font-thin ${className}`}>
       {displayText}
-      <span className="animate-pulse">|</span>
+      {animate && currentIndex < text.length && <span className="animate-pulse">|</span>}
     </span>
   )
 } 
